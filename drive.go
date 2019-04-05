@@ -1,5 +1,10 @@
 package main
 
+// Server communicating with autonomous car simulator client
+// task - Connect to the client (socketio)
+// Task - Receiving camera image and speed value
+// Task - Sending throttle and steer command
+
 import (
 	"fmt"
 	"log"
@@ -47,6 +52,8 @@ func main() {
 		//reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(msg["image"]))
 		//Image,_,_ := image.Decode(reader)
 		//im := GetImageFeature(Image)
+
+		// Algorithm
 	})
 
 	go server.Serve()

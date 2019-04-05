@@ -1,5 +1,7 @@
 package svm
 
+// Implementaytion of SVM machine learning 
+
 import (
  "github.com/ewalker544/libsvm-go"
 )
@@ -25,5 +27,5 @@ func train(inputFilePath string, kernel int, outputFilePath sting)  {
 }
 
 func test(){
-  
+
 }

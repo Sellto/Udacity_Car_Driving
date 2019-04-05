@@ -41,6 +41,7 @@ func getDataFromCSV(file string) []trainingData {
     }
     l = append(l, trainingData{imagePath: record[0],speed: speed, throttle: throttle, steering_angle: steering_angle})
 	}
+  
 return l
 }
 
