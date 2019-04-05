@@ -1,5 +1,7 @@
 package cp
 
+// Implementaytion of SVM machine learning 
+
 import (
  "github.com/ewalker544/libsvm-go"
  "fmt"
