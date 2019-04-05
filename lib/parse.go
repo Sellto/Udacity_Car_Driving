@@ -2,6 +2,7 @@ package cp
 
 // Parse csv file from simulator
 //    (Camera images + Steerangle + throttle + Speed )
+
 import (
   "bufio"
   "encoding/csv"
