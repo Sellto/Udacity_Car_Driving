@@ -43,3 +43,5 @@ func getDataFromCSV(file string) []trainingData {
 	}
 return l
 }
+
+func tom() {}
