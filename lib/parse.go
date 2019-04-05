@@ -1,4 +1,4 @@
-package parse
+package cp
 
 import (
   "bufio"
@@ -25,8 +25,6 @@ func getDataFromCSV(file string) []trainingData {
 		if err == io.EOF {
 			break
 		}
-  }
-
     steering_angle,err := strconv.ParseFloat(record[3], 64)
     if err != nil {
         log.Println("Error when parse steering angle value")
@@ -43,5 +41,3 @@ func getDataFromCSV(file string) []trainingData {
 	}
 return l
 }
-
-func tom() {}

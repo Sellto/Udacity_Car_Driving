@@ -1,12 +1,12 @@
-package img
+package cp
 
 import (
   "image/color"
-  "image/draw"
+  //"image/draw"
   "math"
-  "encoding/base64"
+  //"encoding/base64"
   "image"
-  "strings"
+  //"strings"
   _"image/jpeg"
   "github.com/nfnt/resize"
 )
