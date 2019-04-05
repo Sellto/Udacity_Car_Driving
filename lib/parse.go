@@ -10,13 +10,13 @@ import (
 )
 
 type trainingData struct {
-  imagePath string
-  speed float64
-  throttle float64
-  steering_angle float64
+  ImagePath string
+  Speed float64
+  Throttle float64
+  Steering_angle float64
 }
 
-func getDataFromCSV(file string) []trainingData {
+func GetDataFromCSV(file string) []trainingData {
   var l []trainingData
   csvFile, _ := os.Open(file)
   r := csv.NewReader(bufio.NewReader(csvFile))
@@ -37,8 +37,8 @@ func getDataFromCSV(file string) []trainingData {
     if err != nil {
         log.Println("Error when parse speed value")
     }
-    l = append(l, trainingData{imagePath: record[0],speed: speed, throttle: throttle, steering_angle: steering_angle})
+    l = append(l, trainingData{ImagePath: record[0],Speed: speed, Throttle: throttle, Steering_angle: steering_angle})
 	}
-  
+
 return l
 }
