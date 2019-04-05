@@ -23,3 +23,7 @@ func train(inputFilePath string, kernel int, outputFilePath sting)  {
   model.Train(problem)                // Train the model from the problem specification
   model.Dump(outputFilePath)             // Dump the model into a user-specified file
 }
+
+func test(){
+  
+}
