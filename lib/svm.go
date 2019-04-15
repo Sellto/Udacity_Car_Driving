@@ -5,6 +5,7 @@ import (
  "fmt"
  "log"
  "strconv"
+ "math"
 )
 
 
@@ -31,7 +32,26 @@ func test(){
 
 }
 
-func CreateLabel(steering_angle float64, throttle float64) string{
+func CreateLabel(steering_angle float64, throttle float64, step float64) float64{
+  //dec := steering_angle - math.Round(steering_angle)
+  //bottomround := steering_angle-dec
+  rounded_throttle := math.Round(throttle*8)/10
+  if steering_angle > 0 {
+    return (math.Floor(steering_angle/step)*step)+rounded_throttle
+  } else
+  {
+    return (math.Ceil(steering_angle/step)*step)+rounded_throttle
+  }
+}
 
-  return strconv.FormatFloat(steering_angle, 'E', -1, 64) + "," + strconv.FormatFloat(throttle, 'E', -1, 64)
+func DecodeLabel(class float64) (float64,float64) {
+  return math.Floor(class),math.Round((class-math.Floor(class))*10)/10
+}
+
+func TrainEntry(class float64, features []int) string {
+  entry := fmt.Sprintf("%.1f",class)
+  for id,value := range features {
+    entry = entry+" <"+strconv.Itoa(id)+":"+strconv.Itoa(value)+">"
+  }
+  return entry
 }
