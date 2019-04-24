@@ -7,25 +7,29 @@ import (
   //"encoding/base64"
   "image"
   //"strings"
+  "fmt"
   _"image/jpeg"
   "github.com/nfnt/resize"
 )
 
-func GetImageFeature(img image.Image) image.Image {
-	img = resize.Resize(8, 4, img, resize.NearestNeighbor)
+func GetImageFeature(img image.Image,x uint,y uint,rv float64, gv float64, bv float64 ) image.Image {
+	img = resize.Resize(x, y, img, resize.NearestNeighbor)
 	bounds := img.Bounds()
 	w, h := bounds.Max.X, bounds.Max.Y
 	grayScale := image.NewGray(image.Rectangle{image.Point{0, 0}, image.Point{w, h}})
 	for x := 0; x < w; x++ {
 			for y := 0; y < h; y++ {
 					imageColor := img.At(x, y)
-					rr, gg, bb, _ := imageColor.RGBA()
-					r := math.Pow(float64(rr), 2.2)
-					g := math.Pow(float64(gg), 2.2)
-					b := math.Pow(float64(bb), 2.2)
-					m := math.Pow(0.2125*r+0.7154*g+0.0721*b, 1/2.2)
-					Y := uint16(m + 0.5)
-					grayColor := color.Gray{uint8(Y >> 8)}
+					rr, _, _, _ := imageColor.RGBA()
+					r := math.Pow(float64(rr), 1)
+					//g := math.Pow(float64(gg), 2.2)
+					//b := math.Pow(float64(bb), 2.2)
+          //m := math.Pow(rv*r+gv*g+bv*b, 1/2.2)
+					//m := math.Pow(0.2125*r+0.7154*g+0.0721*b, 1/2.2)
+          fmt.Println(r)
+					Y := uint8(r)
+          fmt.Println(Y)
+					grayColor := color.Gray{Y}
 					grayScale.Set(x, y, grayColor)
 			}
 		}
