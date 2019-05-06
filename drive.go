@@ -11,10 +11,11 @@ import (
 	"net/http"
 	"github.com/googollee/go-socket.io"
 	"strconv"
-	// "encoding/base64"
-	// "image"
-	// "strings"
-	// _ "image/jpeg"
+	 "encoding/base64"
+	 "image"
+	 _ "image/jpeg"
+	 "./lib"
+	 "strings"
 	)
 
 //Send data in right format to the car simulation
@@ -48,12 +49,20 @@ func main() {
 
 	//path used by the car to send data.
 	server.OnEvent("/", "telemetry", func(s socketio.Conn, msg map[string]string) {
-		send(s,0,10)
-		//reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(msg["image"]))
-		//Image,_,_ := image.Decode(reader)
-		//im := GetImageFeature(Image)
-
-		// Algorithm
+		reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(msg["image"]))
+		Image,_,_ := image.Decode(reader)
+		listpix := cp.GetImageCropCenterFeature(Image)
+		sp,_ := strconv.ParseInt(msg["speed"],10,8)
+		listpix = append(listpix,uint8(sp))
+		convert := make(map[int]float64)
+		for i,v := range listpix {
+			convert[i]= float64(v)
+		}
+		prediction := cp.PredictFrom(convert,"data5.model_POLY")
+		fmt.Println(prediction)
+		steer, thro := cp.DecodeLabel(prediction)
+		fmt.Println(steer,":",thro)
+		send(s,steer,0.2)
 	})
 
 	go server.Serve()
