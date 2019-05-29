@@ -29,16 +29,19 @@ func displayImage(img image.Image,name string){
 
 func GetImageFeature(img image.Image) []uint8 {
       croppedImg, _ := cutter.Crop(img, cutter.Config{
-        Width:  320,
-        Height: 40,
-        Anchor: image.Point{0, 100},
+        Width:  240,
+        Height: 60,
+        Anchor: image.Point{40, 80},
         Options: cutter.Copy,
       })
-      //displayImage(croppedImg,"test.png")
-      processed_img := toGrayscale2(resize.Resize(16, 4, croppedImg, resize.NearestNeighbor))
-      //displayImage(processed_img,"test3.png")
+      displayImage(croppedImg,"test.png")
+      processed_img := toGrayscale3(resize.Resize(12, 3, croppedImg, resize.NearestNeighbor))
+      displayImage(processed_img,"test3.png")
       return processed_img.Pix
 }
+
+
+
 
 func GetImageCropCenterFeature(img image.Image) []uint8 {
       m := image.NewRGBA(image.Rect(0, 0, 160, 40))
@@ -48,8 +51,8 @@ func GetImageCropCenterFeature(img image.Image) []uint8 {
       pt = image.Pt(0,100)
       rect = image.Rect(0,0,80,40)
       draw.Draw(m, rect, img, pt, draw.Src)
-      processed_img := toGrayscale2(resize.Resize(8, 4, m, resize.NearestNeighbor))
-      //displayImage(processed_img,"test2.png")
+      processed_img := toGrayscale3(resize.Resize(16, 8, m, resize.NearestNeighbor))
+      displayImage(processed_img,"test2.png")
       return processed_img.Pix
 }
 
@@ -92,6 +95,27 @@ func toGrayscale2(img image.Image) *image.Gray {
           }
 			}
 		}
+    return grayScale
+}
 
+func toGrayscale3(img image.Image) *image.Gray {
+	bounds := img.Bounds()
+	w, h := bounds.Max.X, bounds.Max.Y
+	grayScale := image.NewGray(image.Rectangle{image.Point{0, 0}, image.Point{w, h}})
+  //White := color.Gray{uint8(255)}
+  //Black := color.Gray{uint8(0)}
+  for x := 0; x < w; x++ {
+			for y := 0; y < h; y++ {
+					imageColor := img.At(x, y)
+					rr, gg, bb, _ := imageColor.RGBA()
+          if rr < gg || rr < bb {
+            grayScale.Set(x, y, color.Gray{uint8(0)})
+          } else {
+            grayScale.Set(x, y, color.Gray{uint8(4*((rr-gg)/512+(rr-bb)/512))})
+          }
+
+
+			}
+		}
     return grayScale
 }
