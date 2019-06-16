@@ -10,6 +10,8 @@ import (
   "io"
   "strconv"
   "log"
+  "strings"
+  "fmt"
 )
 
 type trainingData struct {
@@ -44,4 +46,35 @@ func GetDataFromCSV(file string) []trainingData {
 	}
 
 return l
+}
+
+func ParseTestingFile(testset_filename string) ([]float64, []map[int]float64) {
+  file, err := os.Open(testset_filename)
+  if err != nil {
+      log.Fatal(err)
+  }
+  defer file.Close()
+  scanner := bufio.NewScanner(file)
+  all_test_feature := []map[int]float64{}
+  target := []float64{}
+  for scanner.Scan() {
+      test_feature := make(map[int]float64)
+      for idv,value := range strings.Split(scanner.Text()," "){
+          if idv > 0 {
+            id , _ := strconv.Atoi(strings.Split(value,":")[0])
+            val , _ := strconv.ParseFloat(strings.Split(value,":")[1], 64)
+            test_feature[id] = val
+          } else {
+            d,_ := strconv.ParseFloat(value, 64)
+            target = append(target,d)
+          }
+      }
+      all_test_feature = append(all_test_feature,test_feature)
+      fmt.Print(".")
+  }
+  if err := scanner.Err(); err != nil {
+      log.Fatal(err)
+  }
+  fmt.Println("*")
+  return target,all_test_feature
 }
