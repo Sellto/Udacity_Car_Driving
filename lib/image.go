@@ -19,6 +19,8 @@ import (
   //"strconv"
 )
 
+
+// Display processed image
 func DisplayImage(img image.Image,name string){
   outfile, err := os.Create(name)
   if err != nil {
@@ -28,7 +30,7 @@ func DisplayImage(img image.Image,name string){
   png.Encode(outfile, img)
 }
 
-
+// Return list pixels of cropped camera image with custom grayscale
 func GetImageCustGSFeature(img image.Image) []float64 {
       croppedImg, _ := cutter.Crop(img, cutter.Config{
         Width:  240,
@@ -45,6 +47,7 @@ func GetImageCustGSFeature(img image.Image) []float64 {
       return pixel
 }
 
+// Return list pixels of cropped camera image with standard grayscale
 func GetImageGSFeature(img image.Image) []float64 {
       croppedImg, _ := cutter.Crop(img, cutter.Config{
         Width:  240,
@@ -60,6 +63,7 @@ func GetImageGSFeature(img image.Image) []float64 {
       return pixel
 }
 
+// Return list pixels of cropped camera image with black and white value
 func GetImageBWFeature(img image.Image) []float64 {
       croppedImg, _ := cutter.Crop(img, cutter.Config{
         Width:  240,
@@ -76,7 +80,7 @@ func GetImageBWFeature(img image.Image) []float64 {
 }
 
 
-
+// Return the image with black and white transformation (custom treshold)
 func ToBW(img image.Image) *image.Gray {
 	bounds := img.Bounds()
 	w, h := bounds.Max.X, bounds.Max.Y
@@ -99,6 +103,7 @@ func ToBW(img image.Image) *image.Gray {
 }
 
 
+// Return the image with standrd grayscale transformation
 func ToGrayscale(imgSrc image.Image) *image.Gray {
 	bounds := imgSrc.Bounds()
     w, h := bounds.Max.X, bounds.Max.Y
@@ -119,6 +124,7 @@ func ToGrayscale(imgSrc image.Image) *image.Gray {
 		return grayScale
 }
 
+// Return the image with custom treshold grayscale transformation
 func ToCustomGrayscale(img image.Image) *image.Gray {
 	bounds := img.Bounds()
 	w, h := bounds.Max.X, bounds.Max.Y
@@ -139,7 +145,7 @@ func ToCustomGrayscale(img image.Image) *image.Gray {
     return grayScale
 }
 
-
+// Return grayscale image adaptated for HOG processing
 func ProcessHOGImg(img image.Image,data HOGdata ) *image.Gray {
       croppedImg, _ := cutter.Crop(img, cutter.Config{
         Width:  320,
