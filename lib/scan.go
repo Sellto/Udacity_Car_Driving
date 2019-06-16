@@ -25,19 +25,19 @@ func ScanImage(data HOGdata,size,overlap int, src image.Image,show bool,model st
   //   infile.Close()
   // }
 
-  prediction := make([][]float64, int(160/(size-overlap))-1)
+  prediction := make([][]float64, 1)
   for i := range prediction {
-    prediction[i] = make([]float64, int(320/(size-overlap))-1)
+    prediction[i] = make([]float64, int(160/(size-overlap))-1)
 }
 
-  incoming := image.NewRGBA(image.Rect(0, 0, 320, 160))
-  draw.Draw(incoming, incoming.Bounds(), src, image.Pt(0,0), draw.Src)
+  incoming := image.NewRGBA(image.Rect(0, 0, 160, 64))
+  draw.Draw(incoming, incoming.Bounds(), src, image.Pt(160,70), draw.Src)
   rect := image.NewRGBA(image.Rect(0, 0, size, size))
   DisplayImage(rect,"rect.png")
-  for y := 0 ; y < int(160/(size-overlap))-1 ; y++ {
-     for x := 0 ; x < int(320/(size-overlap))-1 ; x++ {
+  for y := 0 ; y < 1 ; y++ {
+     for x := 0 ; x < int(160/(size-overlap))-1 ; x++ {
        emptypic := image.NewRGBA(image.Rect(0, 0, size, size))
-       draw.Draw(emptypic, emptypic.Bounds(), src, image.Pt(x*(size-overlap),y*(size-overlap)), draw.Src)
+       draw.Draw(emptypic, emptypic.Bounds(), incoming, image.Pt(x*(size-overlap),y*(size-overlap)), draw.Src)
        hog, _ := ComputeHoG4SideImg(emptypic, data)
        convert := make(map[int]float64)
        for id,value := range hog {
