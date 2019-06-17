@@ -63,7 +63,7 @@ This last file is the main CLI application allowing to use all tools containing 
 directory section). As all tools parameters can be given in the launch command line, the main.go file parses in
 the first instance all given inputs from the user to properly execute tools and function as requested.
 
-## Usage
+ ## Usage with MAC/Linux 
 A compiled CLI application, called svmtool, is downloadable on the release section. It offers 4 tools: extract, run, learn and test. For each one, a *help* section is available with -h parameter :
 ```bash
 ./svmtool run -h
@@ -88,6 +88,8 @@ You can use the **extract** tool to create the  training and testing datasets fr
 
 The **learn** and **test** tool are completely independent of the Udacity simulator. You can use it for create/learn and test any SVM model.
 See help section for all different possibilities.
+
+**Remark : use svmtool.exe for Windows usage**
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
