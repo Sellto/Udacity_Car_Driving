@@ -76,6 +76,9 @@ import (
 				 if test[0][0] == 1 && test[0][1] == -1 && test[0][2] == -1 {
 					 steer = -0.1
 				 }
+			 	case 1:
+					test = cp.ScanImage2(HOG32,32,8,Image,true,model)
+					//fmt.Println(test)
         case 2:
           listdata,_ = cp.ComputeHoG4All(Image,HOGALL)
 					convert := make(map[int]float64)

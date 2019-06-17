@@ -5,9 +5,7 @@ center3.jpg
 get.go
 Data/
 svmtool_WIN.exe
-*.testing
-*.training
-*.model
+img/
 *.png
 svmtool
 SourceCode.zip

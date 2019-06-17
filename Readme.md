@@ -64,10 +64,30 @@ directory section). As all tools parameters can be given in the launch command l
 the first instance all given inputs from the user to properly execute tools and function as requested.
 
 ## Usage
+A compiled CLI application, called svmtool, is downloadable on the release section. It offers 4 tools: extract, run, learn and test. For each one, a *help* section is available with -h parameter :
+```bash
+./svmtool run -h
+```
+
+Here are some use cases but don't hesitate to abuse *help* section to discover all available features:
+
+### Launch Socket IO server
+To launch the Socket IO Server. You have to use the **run** tool with two paramaters: the configuration and the model, respectively used for processing incoming pictures and SVM prediction. Here is an example :
 
 ```bash
-
+./svmtool run -c hog64 -m HOG_C8x8_BS2_Or9_Grayscale_RightSide_CSVM_POLY3.model
 ```
+### Extract Data
+You can use the **extract** tool to create the  training and testing datasets from the Udacity simulator *csv* file.
+
+```bash
+./svmtool extract -o CGS_Dataset -c customgs -s 100 -t 10.0
+```
+
+### SVM tool
+
+The **learn** and **test** tool are completely independent of the Udacity simulator. You can use it for create/learn and test any SVM model.
+See help section for all different possibilities.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

@@ -25,7 +25,7 @@ var HOG32 = cp.HOGdata {
 
 var HOGALL = cp.HOGdata {
       ResizeX     : 320,
-      ResizeY     : 160,
+      ResizeY     : 48,
       CellSize    : 8, // [pixel]
       BlockSize   : 2, // [cell]
       Epsilon     : 1.0,
